@@ -6,6 +6,7 @@ module "wg_configs" {
   server_private_key = var.server_private_key
   server_public_key  = var.server_public_key
   clients            = var.clients
+  network_cidr       = var.network_cidr
 }
 
 # Create firewall rules allowing access to the instance
