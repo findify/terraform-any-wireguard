@@ -11,7 +11,7 @@ module "wg_configs" {
 # Create firewall rules allowing access to the instance
 resource "google_compute_firewall" "this" {
   name        = "${var.name}-firewall-rule"
-  network     = var.vpc_name
+  network     = var.vpc_network
   description = "Wireguard instance inbound/outbound rules"
 
   allow {
@@ -50,7 +50,8 @@ resource "google_compute_instance" "this" {
   }
 
   network_interface {
-    network = var.vpc_name
+    network = var.vpc_network
+    subnetwork = var.vpc_subnetwork != "" ? var.vpc_subnetwork : null
     access_config {
       nat_ip = google_compute_address.this.address
     }

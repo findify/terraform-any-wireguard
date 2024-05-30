@@ -3,9 +3,15 @@ variable "name" {
   description = "The name to use of instance/machine"
 }
 
-variable "vpc_name" {
+variable "vpc_network" {
   type        = string
-  description = "The vpc name where wireguard server instance will be created"
+  description = "The vpc name or self link where wireguard server instance will be created"
+}
+
+variable "vpc_subnetwork" {
+  type        = string
+  description = "The vpc subnet name or self link where wireguard server instance will be created. This is required for custom vpc mode."
+  default     = ""
 }
 
 variable "server_private_key" { # TODO: we probably need to have this set as sensitive
