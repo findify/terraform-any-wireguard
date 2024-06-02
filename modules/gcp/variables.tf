@@ -3,6 +3,11 @@ variable "name" {
   description = "The name to use of instance/machine"
 }
 
+variable "project_id" {
+  type        = string
+  description = "The project where the resources will get deployed"
+}
+
 variable "vpc_network" {
   type        = string
   description = "The vpc name or self link where wireguard server instance will be created"
@@ -14,9 +19,10 @@ variable "vpc_subnetwork" {
   default     = ""
 }
 
-variable "server_private_key" { # TODO: we probably need to have this set as sensitive
+variable "server_private_key" { 
   type        = string
-  description = "Wireguard server private key, which can be generated using wg cli tool: `wg genkey > privatekey-server`"
+  default     = ""
+  description = "Wireguard server private key, which can be generated using wg cli tool: `wg genkey > privatekey-server`. Required if `use_gsm` flag is disabled"
 }
 
 variable "server_public_key" {
@@ -97,4 +103,16 @@ variable "ingress" {
   type        = list(any)
   default     = ["0.0.0.0/0"] # default to all
   description = "The IPs/CIDRs from where the instance wireguard and ssh port are open to connect"
+}
+
+variable "use_gsm" {
+  type        = bool
+  default     = false
+  description = "The flag to use a secret from gsm for the wireguard server private key"
+}
+
+variable "gsm_secret" {
+  type        = string
+  default     = ""
+  description = "GSM secret name or self link to be used for the wireguard server private key. Required if `use_gsm` flag is enabled. Secret should be of format {'private_key':'value'}."
 }

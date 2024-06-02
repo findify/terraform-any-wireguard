@@ -3,8 +3,9 @@ variable "server_public_ip" {
   description = "Wireguard server public static IP"
 }
 
-variable "server_private_key" { # TODO: we probably need to have this set as sensitive
+variable "server_private_key" {
   type        = string
+  default     = ""
   description = "Wireguard server private key, which can be generated using wg cli tool: `wg genkey > privatekey-server`"
 }
 
@@ -53,4 +54,16 @@ variable "ingress" {
   type        = list(any)
   default     = ["0.0.0.0/0"] # default to all
   description = "The IPs/CIDRs from where the instance wireguard and ssh port are open to connect"
+}
+
+variable "use_gsm" {
+  type        = bool
+  default     = false
+  description = "Whether to use a secret from gsm for the wireguard server private key"
+}
+
+variable "gsm_secret" {
+  type        = string
+  default     = ""
+  description = "GSM secret name or self link to be used for the wireguard server private key. Required if use_gsm flag is enabled. Secret should be of format {'private_key':'value'}"
 }

@@ -2,16 +2,23 @@
 
 echo "Wireguard setup started!" > /note.txt
 
-# install wireguard and neded tools
-apt update && apt -y install net-tools wireguard
+# install wireguard and needed tools
+apt update && apt -y install net-tools wireguard jq
 
 # create wireguard server configuration file
 mkdir -p /etc/wireguard
+
+%{ if use_gsm }
+server_private_key=$(gcloud secrets versions access latest --secret="${gsm_secret}" | jq -r .private_key)
+%{ else }
+server_private_key="${server_private_key}"
+%{ endif }
+
 cat > /etc/wireguard/wg0.conf <<- EOF
 [Interface]
 Address = ${network_cidr}
 ListenPort = ${server_port}
-PrivateKey = ${server_private_key}
+PrivateKey = $server_private_key
 PostUp = sysctl -w -q net.ipv4.ip_forward=1
 PostUp = iptables -A FORWARD -i %i -j ACCEPT; iptables -A FORWARD -o %i -j ACCEPT; iptables -t nat -A POSTROUTING -o ENI -j MASQUERADE
 PostDown = sysctl -w -q net.ipv4.ip_forward=0

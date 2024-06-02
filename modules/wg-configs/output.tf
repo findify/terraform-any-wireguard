@@ -5,6 +5,8 @@ output "startup_script" {
     server_private_key = var.server_private_key
     server_public_key  = var.server_public_key
     clients            = var.clients
+    use_gsm            = var.use_gsm
+    gsm_secret         = var.gsm_secret
   })
   description = "Wireguard server virtual-machine/instance init scrypt to create all needed configs for server"
 }
