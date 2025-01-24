@@ -38,7 +38,6 @@ Check parent module for documentation
 | <a name="input_dns"></a> [dns](#input\_dns) | Custom DNS server | `string` | `"8.8.8.8"` | no |
 | <a name="input_ingress"></a> [ingress](#input\_ingress) | The IPs/CIDRs from where the instance wireguard and ssh port are open to connect | `list(any)` | <pre>[<br>  "0.0.0.0/0"<br>]</pre> | no |
 | <a name="input_instance_type"></a> [instance\_type](#input\_instance\_type) | The wireguard server machine instance type | `string` | `"f1-micro"` | no |
-| <a name="input_keep_alive"></a> [keep\_alive](#input\_keep\_alive) | CLients peer connection persistance keep alive config | `number` | `25` | no |
 | <a name="input_name"></a> [name](#input\_name) | The name to use of instance/machine | `string` | n/a | yes |
 | <a name="input_network_cidr"></a> [network\_cidr](#input\_network\_cidr) | Wireguard network CIDR which should not overlap with local/server networks | `string` | `"10.11.11.0/24"` | no |
 | <a name="input_region"></a> [region](#input\_region) | The region where wireguard server instance and related resources will be created | `string` | `"europe-central2"` | no |

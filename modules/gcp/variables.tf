@@ -93,12 +93,6 @@ variable "dns" {
   description = "Custom DNS server"
 }
 
-variable "keep_alive" {
-  type        = number
-  default     = 25
-  description = "CLients peer connection persistance keep alive config"
-}
-
 variable "ingress" {
   type        = list(any)
   default     = ["0.0.0.0/0"] # default to all
